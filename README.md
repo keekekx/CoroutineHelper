@@ -63,3 +63,14 @@ IEnumerator Foo()
     CoroutineHelper.Pool_WaitForSeconds.Despawn(waitForSeconds);//wait 1 sec with CoroutineHelper, no GC.
 }
 ```
+
+### Statistics:
+Finally, there is a counting function to troubleshoot leaks.
+</br>最后，还有一个计数功能，来排查泄露问题
+```C#
+void OnGUI()
+{
+    GUILayout.Box("Coroutine Count: " + CoroutineHelper.CoroutineCount);
+    GUILayout.Box("Pool Total Size: " + CoroutineHelper.PoolTotalSize);
+}
+```

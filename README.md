@@ -1,7 +1,7 @@
 # CoroutineHelper
 
 CoroutineHelper is a unity3d coroutine tool collections.
-</br>协程助手是一个Unity3D的协程工具集合。
+</br>协程助手是一个Unity3D的协程工具集。
 
 
 ### Common:

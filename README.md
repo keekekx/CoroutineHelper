@@ -39,7 +39,6 @@ IEnumerator Foo() { yield break; }
 ### CoroutinePool:
 You can also create a coroutine pool to avoid the GC of StartCoroutine,
 but the coroutine pool is more troublesome to use.
-
 </br>你还可以创建协程池来避免StartCoroutine的GC问题，但是这个用起来会复杂一些。
 
 ```C#
@@ -52,7 +51,6 @@ if (coroutinePool.HasCoroutineIdle)
 
 ### InternalPool:
 and you can avoid GC with some internal pools.
-
 </br>另外还封装了一些yield函数的内部池，避免诸如new WaitForSeconds(...)带来的GC开销。
 
 ```C#

@@ -12,7 +12,7 @@ CoroutineHelper.StartCoroutine(...)
 ```
 
 And packaged some common extensions
-  并且封装了一些常用扩展
+[br]并且封装了一些常用扩展
 ```C#
 CoroutineHelper.DelayInvoke(() => Debug.Log("foo!"), 2f);
 CoroutineHelper.DelayNextFrameInvoke(() => Debug.Log("foo!"));

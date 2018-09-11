@@ -18,7 +18,7 @@ CoroutineHelper.DelayInvoke(() => Debug.Log("foo!"), 2f);
 CoroutineHelper.DelayNextFrameInvoke(() => Debug.Log("foo!"));
 ```
 
-- CoroutineGroup:
+### CoroutineGroup:
 or like the MonoBehaviour class, you can ‘StopAllCoroutine’ through CoroutineGroup:
 ```C#
 void Test()
@@ -35,7 +35,7 @@ void Test()
 IEnumerator Foo() { yield break; }
 ```
 
-- CoroutinePool:
+### CoroutinePool:
 You can also create a coroutine pool to avoid the GC of StartCoroutine,
 but the coroutine pool is more troublesome to use.
 
@@ -47,7 +47,7 @@ if (coroutinePool.HasCoroutineIdle)
     coroutinePool.StartCoroutine(Foo());//Or like this.
 ```
 
-- InternalPool:
+### InternalPool:
 and you can avoid GC with some internal pools.
 
 ```C#

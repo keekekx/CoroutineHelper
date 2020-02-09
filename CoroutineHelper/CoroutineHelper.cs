@@ -47,6 +47,8 @@ namespace Hont
         /// </summary>
         public static CoroutineHelper_Factory Factory { get { return mFactory; } }
 
+        public static bool IsApplicationQuit { get { return CoroutineRunner.Instance == null; } }
+
 
         static CoroutineHelper()
         {
@@ -83,11 +85,27 @@ namespace Hont
         }
 
         /// <summary>
+        /// 延迟一帧调用目标内容，并返回协程对象(通过对象自身协程开启）。
+        /// </summary>
+        public static Coroutine DelayNextFrameInvoke(MonoBehaviour container, Action action)
+        {
+            return container.StartCoroutine(DelayFrameFunc(action));
+        }
+
+        /// <summary>
         /// 延迟一帧调用目标内容，并返回协程对象。
         /// </summary>
         public static Coroutine DelayNextFrameInvoke(Action action)
         {
             return StartCoroutine(DelayFrameFunc(action));
+        }
+
+        /// <summary>
+        /// 延迟一段秒数后调用目标内容，并返回协程对象(通过对象自身协程开启）。
+        /// </summary>
+        public static Coroutine DelayInvoke(MonoBehaviour container, Action action, float seconds, bool ignoreTimeScale = false)
+        {
+            return container.StartCoroutine(DelaySecondsFunc(action, seconds, ignoreTimeScale));
         }
 
         /// <summary>
@@ -99,11 +117,27 @@ namespace Hont
         }
 
         /// <summary>
+        /// 等待直到条件满足调用目标内容，并返回协程对象(通过对象自身协程开启）。
+        /// </summary>
+        public static Coroutine WaitUntil(MonoBehaviour container, Func<bool> condition, Action action)
+        {
+            return container.StartCoroutine(WaitUntilFunc(condition, action));
+        }
+
+        /// <summary>
         /// 等待直到条件满足调用目标内容，并返回协程对象。
         /// </summary>
         public static Coroutine WaitUntil(Func<bool> condition, Action action)
         {
             return StartCoroutine(WaitUntilFunc(condition, action));
+        }
+
+        /// <summary>
+        /// 等待直到条件返回False调用目标内容，并返回协程对象(通过对象自身协程开启）。
+        /// </summary>
+        public static Coroutine WaitWhile(MonoBehaviour container, Func<bool> condition, Action action)
+        {
+            return container.StartCoroutine(WaitWhileFunc(condition, action));
         }
 
         /// <summary>

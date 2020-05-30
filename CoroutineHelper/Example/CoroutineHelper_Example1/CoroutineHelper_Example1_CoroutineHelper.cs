@@ -2,37 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hont
+using Hont;
+
+public class CoroutineHelper_Example1_CoroutineHelper : MonoBehaviour
 {
-    public class CoroutineHelper_Example1_CoroutineHelper : MonoBehaviour
+    Coroutine mCoroutine;
+
+
+    void OnEnable()
     {
-        Coroutine mCoroutine;
+        mCoroutine = CoroutineHelper.StartCoroutine(A());
+    }
 
+    void OnDisable()
+    {
+        CoroutineHelper.StopCoroutine(mCoroutine);
+    }
 
-        void OnEnable()
+    IEnumerator A()
+    {
+        var waitForSecond = CoroutineHelper.Pool_WaitForSeconds.Spawn();
+        waitForSecond.Reset(0.1f);
+
+        while (true)
         {
-            mCoroutine = CoroutineHelper.StartCoroutine(A());
+            yield return waitForSecond;
+            B();
         }
+    }
 
-        void OnDisable()
-        {
-            CoroutineHelper.StopCoroutine(mCoroutine);
-        }
-
-        IEnumerator A()
-        {
-            var waitForSecond = CoroutineHelper.Pool_WaitForSeconds.Spawn();
-            waitForSecond.Reset(0.1f);
-
-            while (true)
-            {
-                yield return waitForSecond;
-                B();
-            }
-        }
-
-        void B()
-        {
-        }
+    void B()
+    {
     }
 }

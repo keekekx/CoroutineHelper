@@ -2,26 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hont
+using Hont;
+
+public class CoroutineHelper_Example1_UnityCoroutine : MonoBehaviour
 {
-    public class CoroutineHelper_Example1_UnityCoroutine : MonoBehaviour
+    void OnEnable()
     {
-        void OnEnable()
-        {
-            StartCoroutine(A());
-        }
+        StartCoroutine(A());
+    }
 
-        IEnumerator A()
+    IEnumerator A()
+    {
+        while (true)
         {
-            while (true)
-            {
-                yield return new WaitForSeconds(0.1f);
-                B();
-            }
+            yield return new WaitForSeconds(0.1f);
+            B();
         }
+    }
 
-        void B()
-        {
-        }
+    void B()
+    {
     }
 }

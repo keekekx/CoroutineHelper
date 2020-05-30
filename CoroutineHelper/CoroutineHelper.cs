@@ -47,15 +47,18 @@ namespace Hont
         /// </summary>
         public static CoroutineHelper_Factory Factory { get { return mFactory; } }
 
-        public static bool IsApplicationQuit { get { return CoroutineRunner.Instance == null; } }
+        /// <summary>
+        /// 协程助手实例是否有效。
+        /// </summary>
+        public static bool InstanceValid { get { return (bool)CoroutineRunner.Instance; } }
 
 
         static CoroutineHelper()
         {
-            mPool_WaitForSecondsRealtime = new CoroutineHelper_SimplePool<CoroutineHelper_WaitForSecondsRealtime>(100, () => new CoroutineHelper_WaitForSecondsRealtime());
-            mPool_WaitForSeconds = new CoroutineHelper_SimplePool<CoroutineHelper_WaitForSeconds>(100, () => new CoroutineHelper_WaitForSeconds());
-            mPool_WaitUntil = new CoroutineHelper_SimplePool<CoroutineHelper_WaitUntil>(100, () => new CoroutineHelper_WaitUntil());
-            mPool_WaitWhile = new CoroutineHelper_SimplePool<CoroutineHelper_WaitWhile>(100, () => new CoroutineHelper_WaitWhile());
+            mPool_WaitForSecondsRealtime = new CoroutineHelper_SimplePool<CoroutineHelper_WaitForSecondsRealtime>(128, () => new CoroutineHelper_WaitForSecondsRealtime());
+            mPool_WaitForSeconds = new CoroutineHelper_SimplePool<CoroutineHelper_WaitForSeconds>(128, () => new CoroutineHelper_WaitForSeconds());
+            mPool_WaitUntil = new CoroutineHelper_SimplePool<CoroutineHelper_WaitUntil>(128, () => new CoroutineHelper_WaitUntil());
+            mPool_WaitWhile = new CoroutineHelper_SimplePool<CoroutineHelper_WaitWhile>(128, () => new CoroutineHelper_WaitWhile());
             mFactory = new CoroutineHelper_Factory();
         }
 
@@ -146,6 +149,15 @@ namespace Hont
         public static Coroutine WaitWhile(Func<bool> condition, Action action)
         {
             return StartCoroutine(WaitWhileFunc(condition, action));
+        }
+
+        /// <summary>
+        /// 增加协程执行完成后操作
+        /// </summary>
+        public static IEnumerator Callback(IEnumerator x, Action onCallback)
+        {
+            yield return x;
+            onCallback();
         }
 
         static IEnumerator DelayFrameFunc(Action action)

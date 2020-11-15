@@ -88,6 +88,50 @@ namespace Hont
         }
 
         /// <summary>
+        /// 等待一定秒数(协程池处理)
+        /// </summary>
+        /// <param name="waitSecondTime">等待的秒数</param>
+        public static IEnumerator WaitForSeconds(float waitSecondTime)
+        {
+            CoroutineHelper_WaitForSeconds waitForSeconds = mPool_WaitForSeconds.Spawn();
+            yield return waitForSeconds.Reset(waitSecondTime);
+            mPool_WaitForSeconds.Despawn(waitForSeconds);
+        }
+
+        /// <summary>
+        /// 等待一定的真实秒数(协程池处理)
+        /// </summary>
+        /// <param name="waitSecondTime">等待的秒数</param>
+        public static IEnumerator WaitForSecondsRealtime(float waitSecondTime)
+        {
+            CoroutineHelper_WaitForSecondsRealtime waitForSecondsRealtime = mPool_WaitForSecondsRealtime.Spawn();
+            yield return waitForSecondsRealtime.Reset(waitSecondTime);
+            mPool_WaitForSecondsRealtime.Despawn(waitForSecondsRealtime);
+        }
+
+        /// <summary>
+        /// 等待指定条件直到为true(协程池处理)
+        /// </summary>
+        /// <param name="waitUntilFunc">等待的指定条件</param>
+        public static IEnumerator WaitUntil(Func<bool> waitUntilFunc)
+        {
+            CoroutineHelper_WaitUntil waitUntil = mPool_WaitUntil.Spawn();
+            yield return waitUntil.Reset(waitUntilFunc);
+            mPool_WaitUntil.Despawn(waitUntil);
+        }
+
+        /// <summary>
+        /// 等待指定条件直到为false(协程池处理)
+        /// </summary>
+        /// <param name="waitWhileFunc">等待的指定条件</param>
+        public static IEnumerator WaitWhile(Func<bool> waitWhileFunc)
+        {
+            CoroutineHelper_WaitWhile waitWhile = mPool_WaitWhile.Spawn();
+            yield return waitWhile.Reset(waitWhileFunc);
+            mPool_WaitWhile.Despawn(waitWhile);
+        }
+
+        /// <summary>
         /// 延迟一帧调用目标内容，并返回协程对象(通过对象自身协程开启）。
         /// </summary>
         public static Coroutine DelayNextFrameInvoke(MonoBehaviour container, Action action)
